@@ -1,7 +1,7 @@
 import pandas as pd 
 import streamlit as st
 
-data = pd.read_csv('ddp_data.csv')
+data = pd.read_csv('DATA/ddp_data.csv')
 
 # Create Streamlit UI
 st.title("Ngee Ann Polytechnic Bus Arrival Information")
