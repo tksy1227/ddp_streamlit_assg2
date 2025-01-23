@@ -1,7 +1,10 @@
-import pandas as pd 
+import pandas as pd
 import streamlit as st
 
 data = pd.read_csv('DATA/ddp_data.csv')
+
+# Convert BusStopCode to string (if it's not already)
+data['BusStopCode'] = data['BusStopCode'].astype(str)
 
 # Create Streamlit UI
 st.title("Ngee Ann Polytechnic Bus Arrival Information")
