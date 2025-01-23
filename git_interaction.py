@@ -11,6 +11,9 @@ def commit_and_push_to_github(file_path, commit_message):
     """
 
     try:
+        # Create the 'DATA' directory if it doesn't exist
+        os.makedirs("DATA", exist_ok=True)
+
         # Stage the file for commit
         subprocess.run(["git", "add", file_path])
 
@@ -26,6 +29,6 @@ def commit_and_push_to_github(file_path, commit_message):
         print(f"Error committing and pushing to GitHub: {e}")
 
 # Example usage:
-file_path = "C:\Users\User\OneDrive - Ngee Ann Polytechnic\Ngee Ann Poly\YEAR 2 SEM 2\DDP\ASSG2\ddp_data.csv"
+file_path = "DATA/ddp_data.csv"
 commit_message = "Updated bus arrival data"
 commit_and_push_to_github(file_path, commit_message)
