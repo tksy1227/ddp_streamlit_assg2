@@ -2,7 +2,7 @@ name: Sync Data from Google Drive
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Run every 5 minutes
+    - cron: '*/1 * * * *'  # Run every 1 minute (minimum interval for GitHub Actions)
   workflow_dispatch:  # Allow manual triggering
 
 jobs:
