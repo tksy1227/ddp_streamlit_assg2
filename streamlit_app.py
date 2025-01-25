@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 
 # Load data
-data = pd.read_csv('DATA/ddp_data.csv')
+data = pd.read_csv('data/ddp_data.csv')
 
 # Convert BusStopCode to string
 data['BusStopCode'] = data['BusStopCode'].astype(str)
