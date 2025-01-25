@@ -1,0 +1,22 @@
+NextBus,Description,ServiceNo,MinutesLeft,EstimatedArrival,Feature,Load,Monitored,Type
+NextBus,Bt Batok Int,61,-0,2025-01-25 11:44:15,WAB,SDA,1,SD
+NextBus,Gali Batu Ter,75,2,2025-01-25 11:47:33,WAB,SEA,1,SD
+NextBus,Hougang Ctrl Int,74,4,2025-01-25 11:49:06,WAB,SEA,1,SD
+NextBus,Gali Batu Ter,184,5,2025-01-25 11:50:42,WAB,SDA,1,SD
+NextBus,Hougang Ctrl Int,151,6,2025-01-25 11:51:14,WAB,SEA,1,SD
+NextBus,Bishan Int,52,9,2025-01-25 11:54:11,WAB,SEA,1,DD
+NextBus,Eunos Int,154,9,2025-01-25 11:54:56,WAB,SDA,1,SD
+NextBus2,Bt Batok Int,61,9,2025-01-25 11:54:39,WAB,SEA,1,SD
+NextBus2,Hougang Ctrl Int,74,10,2025-01-25 11:55:35,WAB,SEA,1,DD
+NextBus2,Gali Batu Ter,184,15,2025-01-25 12:00:10,WAB,SEA,1,SD
+NextBus2,Gali Batu Ter,75,19,2025-01-25 12:04:34,WAB,SEA,1,SD
+NextBus2,Hougang Ctrl Int,151,20,2025-01-25 12:05:16,WAB,SEA,0,SD
+NextBus2,Bishan Int,52,22,2025-01-25 12:07:30,WAB,SEA,1,SD
+NextBus2,Eunos Int,154,22,2025-01-25 12:07:46,WAB,SEA,1,DD
+NextBus3,Gali Batu Ter,184,17,2025-01-25 12:02:42,WAB,SDA,1,SD
+NextBus3,Hougang Ctrl Int,74,23,2025-01-25 12:08:01,WAB,SEA,1,DD
+NextBus3,Bt Batok Int,61,25,2025-01-25 12:10:53,WAB,SEA,1,SD
+NextBus3,Bishan Int,52,31,2025-01-25 12:16:37,WAB,SEA,0,SD
+NextBus3,Hougang Ctrl Int,151,35,2025-01-25 12:20:16,WAB,SEA,0,SD
+NextBus3,Gali Batu Ter,75,35,2025-01-25 12:20:48,WAB,SEA,1,SD
+NextBus3,Eunos Int,154,36,2025-01-25 12:21:16,WAB,SEA,1,DD
