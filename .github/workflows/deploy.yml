@@ -23,13 +23,10 @@ jobs:
         pip install -r requirements.txt
         pip install gspread google-auth
 
-    - name: Write credentials to file
+    - name: Run Streamlit app
       env:
         SERVICE_CREDENTIAL: ${{ secrets.SERVICE_CREDENTIAL }}  # Use the correct secret name
       run: |
         echo "$SERVICE_CREDENTIAL" > service_credentials.json  # Write the secret to a file
         cat service_credentials.json  # Debug: Print the file contents to verify
-
-    - name: Run Streamlit app
-      run: |
         streamlit run streamlit_app.py
