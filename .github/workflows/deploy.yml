@@ -26,5 +26,5 @@ jobs:
     - name: Run Streamlit app
       env:
         GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}
-      run: |
-        streamlit run streamlit_app.py
+     # run: |
+      #  streamlit run streamlit_app.py
