@@ -8,6 +8,10 @@ def extract_data_from_google_sheets(sheets_url, st=None):
     Extracts data from a Google Sheets URL and saves each sheet as a CSV file.
     """
     try:
+        # Debug: Print all secrets
+        if st:
+            st.write("Secrets:", st.secrets)
+
         # Define the scope
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
