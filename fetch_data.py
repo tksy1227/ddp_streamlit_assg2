@@ -11,7 +11,7 @@ def extract_data_from_google_sheets(sheets_url, st=None):
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
         # Add your service account credentials file
-        creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+        creds = ServiceAccountCredentials.from_json_keyfile_name('service_credentials.json', scope)
 
         # Authorize the client
         client = gspread.authorize(creds)
@@ -36,11 +36,8 @@ def extract_data_from_google_sheets(sheets_url, st=None):
                 # Save to CSV
                 csv_filename = f"{sheet_name}.csv"
                 df.to_csv(csv_filename, index=False)
-                if st:
-                    st.success(f"Data from '{sheet_name}' saved to '{csv_filename}'.")
-                else:
-                    print(f"Data from '{sheet_name}' saved to '{csv_filename}'.")
-                all_data.append(df)  # Append to the list
+                # Append to the list
+                all_data.append(df)
             except gspread.exceptions.WorksheetNotFound:
                 if st:
                     st.warning(f"Sheet '{sheet_name}' not found in the Google Sheets document.")
