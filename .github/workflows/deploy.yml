@@ -23,9 +23,8 @@ jobs:
         pip install -r requirements.txt
         pip install gspread google-auth
 
-    - name: Set GOOGLE_SHEETS_CREDENTIALS from secret
+    - name: Run Streamlit app
       env:
         GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}
       run: |
-        # Your code here will have access to the secret stored in the environment variable
         streamlit run streamlit_app.py
