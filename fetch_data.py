@@ -1,6 +1,6 @@
 import gspread
 import pandas as pd
-import os
+import streamlit as st
 from oauth2client.service_account import ServiceAccountCredentials
 
 def extract_data_from_google_sheets(sheets_url, st=None):
@@ -8,17 +8,25 @@ def extract_data_from_google_sheets(sheets_url, st=None):
     Extracts data from a Google Sheets URL and saves each sheet as a CSV file.
     """
     try:
-        # Path to the service account credentials file
-        creds_file = "service_credentials.json"
-
-        if not os.path.exists(creds_file):
-            raise ValueError(f"Service account credentials file '{creds_file}' not found.")
-
         # Define the scope
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
-        # Load the credentials into ServiceAccountCredentials
-        creds = ServiceAccountCredentials.from_json_keyfile_name(creds_file, scope)
+        # Load credentials from Streamlit secrets
+        credentials = {
+            "type": st.secrets["google_credentials"]["type"],
+            "project_id": st.secrets["google_credentials"]["project_id"],
+            "private_key_id": st.secrets["google_credentials"]["private_key_id"],
+            "private_key": st.secrets["google_credentials"]["private_key"],
+            "client_email": st.secrets["google_credentials"]["client_email"],
+            "client_id": st.secrets["google_credentials"]["client_id"],
+            "auth_uri": st.secrets["google_credentials"]["auth_uri"],
+            "token_uri": st.secrets["google_credentials"]["token_uri"],
+            "auth_provider_x509_cert_url": st.secrets["google_credentials"]["auth_provider_x509_cert_url"],
+            "client_x509_cert_url": st.secrets["google_credentials"]["client_x509_cert_url"],
+        }
+
+        # Create credentials object
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials, scope)
 
         # Authorize the client
         client = gspread.authorize(creds)
