@@ -25,6 +25,7 @@ jobs:
 
     - name: Run Streamlit app
       env:
-        GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}
-     # run: |
-      #  streamlit run streamlit_app.py
+        SERVICE_CREDENTIAL: ${{ secrets.SERVICE_CREDENTIAL }}  # Use the correct secret name
+      run: |
+        echo "$SERVICE_CREDENTIAL" > service_credentials.json  # Write the secret to a file
+        streamlit run streamlit_app.py
