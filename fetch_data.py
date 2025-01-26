@@ -1,33 +1,14 @@
 import gspread
 import pandas as pd
-import streamlit as st
 from oauth2client.service_account import ServiceAccountCredentials
 
-def extract_data_from_google_sheets(sheets_url, st=None):
+def extract_data_from_google_sheets(sheets_url, credentials, st=None):
     """
     Extracts data from a Google Sheets URL and saves each sheet as a CSV file.
     """
     try:
-        # Debug: Print all secrets
-        if st:
-            st.write("Secrets:", st.secrets)
-
         # Define the scope
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-
-        # Load credentials from Streamlit secrets
-        credentials = {
-            "type": st.secrets["google_credentials"]["type"],
-            "project_id": st.secrets["google_credentials"]["project_id"],
-            "private_key_id": st.secrets["google_credentials"]["private_key_id"],
-            "private_key": st.secrets["google_credentials"]["private_key"],
-            "client_email": st.secrets["google_credentials"]["client_email"],
-            "client_id": st.secrets["google_credentials"]["client_id"],
-            "auth_uri": st.secrets["google_credentials"]["auth_uri"],
-            "token_uri": st.secrets["google_credentials"]["token_uri"],
-            "auth_provider_x509_cert_url": st.secrets["google_credentials"]["auth_provider_x509_cert_url"],
-            "client_x509_cert_url": st.secrets["google_credentials"]["client_x509_cert_url"],
-        }
 
         # Create credentials object
         creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials, scope)
@@ -35,8 +16,11 @@ def extract_data_from_google_sheets(sheets_url, st=None):
         # Authorize the client
         client = gspread.authorize(creds)
 
-        # Open the Google Sheets document by URL
-        spreadsheet = client.open_by_url(sheets_url)
+        # Extract the Google Sheet ID from the URL
+        sheet_id = sheets_url.split("/d/")[1].split("/")[0]
+
+        # Open the Google Sheets document by ID
+        spreadsheet = client.open_by_key(sheet_id)
 
         # List of sheet names to extract
         sheet_names = ["NextBus", "NextBus2", "NextBus3"]

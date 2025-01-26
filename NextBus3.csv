@@ -1,8 +1,8 @@
 NextBus,Description,ServiceNo,MinutesLeft,EstimatedArrival,Feature,Load,Monitored,Type
-NextBus3,Eunos Int,61,22,26/1/2025 11:17,WAB,SEA,0,SD
-NextBus3,Buona Vista Ter,74,30,26/1/2025 11:25,WAB,SEA,1,DD
-NextBus3,Gali Batu Ter,184,39,26/1/2025 11:34,WAB,SEA,0,SD
-NextBus3,Kent Ridge Ter,151,40,26/1/2025 11:34,WAB,SEA,1,SD
-NextBus3,Bt Merah Int,75,40,26/1/2025 11:34,WAB,SEA,0,SD
-NextBus3,Jurong East Int,52,40,26/1/2025 11:35,WAB,SEA,1,SD
-NextBus3,Boon Lay Int,154,41,26/1/2025 11:36,WAB,SEA,1,SD
+NextBus3,Bt Batok Int,61,17,26/1/2025 14:58,WAB,SEA,1,SD
+NextBus3,Hougang Ctrl Int,74,20,26/1/2025 15:01,WAB,SEA,1,SD
+NextBus3,Eunos Int,154,24,26/1/2025 15:05,WAB,SEA,1,SD
+NextBus3,Hougang Ctrl Int,151,27,26/1/2025 15:08,WAB,SEA,0,SD
+NextBus3,Bishan Int,52,31,26/1/2025 15:12,WAB,SEA,0,SD
+NextBus3,Gali Batu Ter,75,32,26/1/2025 15:13,WAB,SEA,1,SD
+NextBus3,Gali Batu Ter,184,33,26/1/2025 15:14,WAB,SEA,1,SD
