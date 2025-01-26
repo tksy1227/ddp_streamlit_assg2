@@ -1,38 +1,71 @@
-import pandas as pd
 import gspread
+import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
-# Replace with your actual values
-SHEET_ID = "1f58eqLkFr5nJ6bm5PZ3TbfUAxeSd1hpBspW9693kXv8"
-SERVICE_ACCOUNT_FILE = "credentials.json"
-SCOPES = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-
-def fetch_data():
-    """Fetches data from Google Sheets and returns a Pandas DataFrame."""
+def extract_data_from_google_sheets(sheets_url, st=None):
+    """
+    Extracts data from a Google Sheets URL and saves each sheet as a CSV file.
+    """
     try:
-        # Use service account credentials to access Google Sheets
-        creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, SCOPES)
+        # Define the scope
+        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+
+        # Add your service account credentials file
+        creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+
+        # Authorize the client
         client = gspread.authorize(creds)
 
-        # Open the Google Sheet by its ID
-        sheet = client.open_by_key(SHEET_ID).sheet1
+        # Open the Google Sheets document by URL
+        spreadsheet = client.open_by_url(sheets_url)
 
-        # Get all data from the sheet
-        data = sheet.get_all_values()
+        # List of sheet names to extract
+        sheet_names = ["NextBus", "NextBus2", "NextBus3"]
 
-        # Convert data to pandas DataFrame
-        df = pd.DataFrame(data[1:], columns=data[0])  # Use headers from the first row
+        # Extract data from each sheet and save as CSV
+        all_data = []  # To store data from all sheets
 
-        return df
+        for sheet_name in sheet_names:
+            try:
+                # Access the sheet
+                sheet = spreadsheet.worksheet(sheet_name)
+                # Get all records from the sheet
+                data = sheet.get_all_records()
+                # Convert to DataFrame
+                df = pd.DataFrame(data)
+                # Save to CSV
+                csv_filename = f"{sheet_name}.csv"
+                df.to_csv(csv_filename, index=False)
+                if st:
+                    st.success(f"Data from '{sheet_name}' saved to '{csv_filename}'.")
+                else:
+                    print(f"Data from '{sheet_name}' saved to '{csv_filename}'.")
+                all_data.append(df)  # Append to the list
+            except gspread.exceptions.WorksheetNotFound:
+                if st:
+                    st.warning(f"Sheet '{sheet_name}' not found in the Google Sheets document.")
+                else:
+                    print(f"Sheet '{sheet_name}' not found in the Google Sheets document.")
+            except Exception as e:
+                if st:
+                    st.error(f"Error processing sheet '{sheet_name}': {e}")
+                else:
+                    print(f"Error processing sheet '{sheet_name}': {e}")
+
+        # Combine all DataFrames into one
+        if all_data:
+            combined_df = pd.concat(all_data, ignore_index=True)
+            return combined_df
+        else:
+            if st:
+                st.error("No data was extracted from any sheet.")
+            else:
+                print("No data was extracted from any sheet.")
+            return pd.DataFrame()  # Return an empty DataFrame
 
     except Exception as e:
-        print(f"Error fetching data: {e}")
-        return pd.DataFrame()  # Return an empty DataFrame on failure
-
-# Example usage (optional)
-if __name__ == "__main__":
-    data = fetch_data()
-    if not data.empty:
-        print(data)
-    else:
-        print("Failed to fetch data.")
+        if st:
+            st.error(f"Error accessing Google Sheets: {e}")
+        else:
+            print(f"Error accessing Google Sheets: {e}")
+        return pd.DataFrame()  # Return an empty DataFrame in case of error
