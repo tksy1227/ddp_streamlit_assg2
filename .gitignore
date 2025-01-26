@@ -1,1 +1,3 @@
 data/ddp_data.csv
+# .gitignore
+service_credentials.json
