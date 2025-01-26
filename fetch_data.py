@@ -1,5 +1,6 @@
 import gspread
 import pandas as pd
+import json
 import os
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -8,17 +9,20 @@ def extract_data_from_google_sheets(sheets_url, st=None):
     Extracts data from a Google Sheets URL and saves each sheet as a CSV file.
     """
     try:
-        # Path to the service account credentials file
-        creds_file = "service_credentials.json"
+        # Access the Google Sheets credentials from GitHub secret
+        google_credentials = os.getenv('SERVICE_CREDENTIAL')  # Use the correct environment variable name
 
-        if not os.path.exists(creds_file):
-            raise ValueError(f"Service account credentials file '{creds_file}' not found.")
+        if google_credentials is None:
+            raise ValueError("Google Sheets credentials not found in environment variables.")
 
+        # Load the credentials from the secret (in JSON format)
+        creds_dict = json.loads(google_credentials)
+        
         # Define the scope
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
         # Load the credentials into ServiceAccountCredentials
-        creds = ServiceAccountCredentials.from_json_keyfile_name(creds_file, scope)
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 
         # Authorize the client
         client = gspread.authorize(creds)
