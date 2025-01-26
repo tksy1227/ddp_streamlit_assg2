@@ -94,6 +94,7 @@ if not data.empty:
             # Add a dropdown for additional details
             with st.expander(f"📄 View Additional Details for Bus {bus_number}"):
                 for _, row in next_arrivals.iterrows():
+                    # Create a card for additional details
                     st.markdown(
                         f"""
                         <div style="
@@ -104,11 +105,19 @@ if not data.empty:
                             background-color: #fff;
                         ">
                             <h4>🚌 Arrival Details</h4>
-                            <p><b>Arrival Time:</b> {row['EstimatedArrival']}</p>
-                            <p><b>Feature:</b> {row['Feature']}</p>
-                            <p><b>Load:</b> {row['Load']}</p>
-                            <p><b>Monitored:</b> {"✅ Yes" if row['Monitored'] == 1 else "❌ No"}</p>
-                            <p><b>Type:</b> {row['Type']}</p>
+                            <div style="display: flex; justify-content: space-between;">
+                                <div style="flex: 1;">
+                                    <p><b>Arrival Time:</b> {row['EstimatedArrival']}</p>
+                                    <p><b>Feature:</b> {row['Feature']}</p>
+                                </div>
+                                <div style="flex: 1;">
+                                    <p><b>Load:</b> {row['Load']}</p>
+                                    <p><b>Monitored:</b> {"✅ Yes" if row['Monitored'] == 1 else "❌ No"}</p>
+                                </div>
+                                <div style="flex: 1;">
+                                    <p><b>Type:</b> {row['Type']}</p>
+                                </div>
+                            </div>
                         </div>
                         """,
                         unsafe_allow_html=True
