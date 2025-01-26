@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import time  # Import the time module
 import fetch_data  # Import your data fetching script
 
 # Set page configuration
@@ -153,3 +154,7 @@ except Exception as e:
 st.markdown("---")
 st.markdown("**Data refreshed periodically**")
 st.markdown("© 2023 Ngee Ann Polytechnic. All rights reserved.")
+
+# Auto-refresh every 30 seconds
+time.sleep(30)  # Wait for 30 seconds
+st.experimental_rerun()  # Rerun the app to refresh the data
