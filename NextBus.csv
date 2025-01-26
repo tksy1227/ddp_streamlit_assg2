@@ -1,8 +1,8 @@
 NextBus,Description,ServiceNo,MinutesLeft,EstimatedArrival,Feature,Load,Monitored,Type
-NextBus,Bt Batok Int,61,0,26/1/2025 14:41,WAB,SEA,1,SD
-NextBus,Eunos Int,154,1,26/1/2025 14:42,WAB,SDA,1,SD
-NextBus,Hougang Ctrl Int,151,2,26/1/2025 14:43,WAB,SEA,1,SD
-NextBus,Hougang Ctrl Int,74,2,26/1/2025 14:43,WAB,SEA,1,SD
-NextBus,Gali Batu Ter,75,5,26/1/2025 14:46,WAB,SEA,1,SD
-NextBus,Bishan Int,52,8,26/1/2025 14:49,WAB,SEA,1,DD
-NextBus,Gali Batu Ter,184,9,26/1/2025 14:50,WAB,SDA,1,SD
+NextBus,Gali Batu Ter,184,0,26/1/2025 21:20,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus,Eunos Int,154,0,26/1/2025 21:21,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus,Bt Batok Int,61,0,26/1/2025 21:21,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus,Hougang Ctrl Int,74,2,26/1/2025 21:23,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus,Hougang Ctrl Int,151,7,26/1/2025 21:28,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus,Gali Batu Ter,75,12,26/1/2025 21:33,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus,Bishan Int,52,15,26/1/2025 21:36,Wheelchair Accessible,Seats Available,1,Single Deck
