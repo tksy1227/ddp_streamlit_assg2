@@ -4,11 +4,6 @@ on:
   schedule:
     - cron: '5 * * * *' # Schedule to run daily at 6 AM UTC
   workflow_dispatch: # Allows manual triggers as well
-    inputs:
-      bus_code:
-        description: 'Enter Bus Code'
-        required: false
-        default: '12101'
 
 jobs:
   run-workflow:
@@ -24,10 +19,4 @@ jobs:
           python-version: '3.9'
 
       - name: Install Dependencies
-        run: pip install -r requirements.txt # Add necessary Python libraries if you're using Python.
-
-      - name: Run Workflow with Bus Code
-        env:
-          BUS_CODE: ${{ github.event.inputs.bus_code || '12101' }}
-        run: |
-          python alteryx/run_alteryx_workflow.py $BUS_CODE
+        run: pip install -r requirements.txt # Add necessary Python libraries if you're using Python
