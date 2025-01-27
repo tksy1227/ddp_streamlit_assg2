@@ -2,4 +2,4 @@ oauth2client
 pandas
 streamlit
 requests
-gsrpead
+gspread
