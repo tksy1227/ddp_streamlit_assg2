@@ -10,6 +10,10 @@ st.set_page_config(
     layout="wide"
 )
 
+# Initialize session state for auto-refresh
+if "last_refresh" not in st.session_state:
+    st.session_state.last_refresh = time.time()
+
 # Sidebar for additional options
 with st.sidebar:
     st.header("Settings")
@@ -156,5 +160,6 @@ st.markdown("**Data refreshed periodically**")
 st.markdown("© 2023 Ngee Ann Polytechnic. All rights reserved.")
 
 # Auto-refresh every 30 seconds
-time.sleep(30)  # Wait for 30 seconds
-st.experimental_rerun()  # Rerun the app to refresh the data
+if time.time() - st.session_state.last_refresh > 30:
+    st.session_state.last_refresh = time.time()
+    st.experimental_rerun()

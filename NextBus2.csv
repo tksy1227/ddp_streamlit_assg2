@@ -1,8 +1,8 @@
 NextBus,Description,ServiceNo,MinutesLeft,EstimatedArrival,Feature,Load,Monitored,Type
-NextBus2,Boon Lay Int,154,8,26/1/2025 22:00,Wheelchair Accessible,Seats Available,1,Double Deck
-NextBus2,Kent Ridge Ter,151,14,26/1/2025 22:06,Wheelchair Accessible,Seats Available,1,Single Deck
-NextBus2,Eunos Int,61,15,26/1/2025 22:08,Wheelchair Accessible,Seats Available,0,Single Deck
-NextBus2,Buona Vista Ter,74,17,26/1/2025 22:10,Wheelchair Accessible,Seats Available,1,Double Deck
-NextBus2,Gali Batu Ter,184,23,26/1/2025 22:15,Wheelchair Accessible,Seats Available,1,Single Deck
-NextBus2,Bt Merah Int,75,35,26/1/2025 22:27,Wheelchair Accessible,Seats Available,0,Single Deck
-NextBus2,Jurong East Int,52,42,26/1/2025 22:34,Wheelchair Accessible,Seats Available,0,Double Deck
+NextBus2,Eunos Int,154,0,27/1/2025 18:49,Wheelchair Accessible,Seats Available,1,Double Deck
+NextBus2,Gali Batu Ter,184,8,27/1/2025 18:57,Wheelchair Accessible,Seats Available,1,Double Deck
+NextBus2,Gali Batu Ter,75,10,27/1/2025 18:58,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus2,Hougang Ctrl Int,151,10,27/1/2025 18:58,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus2,Bt Batok Int,61,12,27/1/2025 19:01,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus2,Hougang Ctrl Int,74,21,27/1/2025 19:10,Wheelchair Accessible,Seats Available,0,Double Deck
+NextBus2,Bishan Int,52,30,27/1/2025 19:19,Wheelchair Accessible,Seats Available,1,Double Deck
