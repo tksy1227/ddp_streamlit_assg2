@@ -1,12 +1,12 @@
-name: Alteryx Workflow Scheduler
+name: Deploy Streamlit App
 
 on:
-  schedule:
-    - cron: '5 * * * *'  # Schedule to run daily at 6:05 AM UTC
-  workflow_dispatch:     # Allows manual triggers as well
+  push:
+    branches:
+      - main
 
 jobs:
-  run-workflow:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,13 +18,11 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Python Script
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.SERVICE_CREDENTIAL }}  # Add other secrets as needed
+      - name: Run Streamlit app
         run: |
-          python streamlit_app.py
+          streamlit run streamlit_app.py
