@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
-import time  # Import the time module
-import fetch_data  # Import your data fetching script
+import time
+import fetch_data
 
 # Set page configuration
 st.set_page_config(
@@ -25,19 +25,14 @@ with st.sidebar:
 # Main content
 st.title("🚌 Ngee Ann Polytechnic Bus Arrival Information")
 
-# Comment out or remove the logo display
-# st.image(logo_url, width=30)  # Logo size reduced to 30px
-
-st.markdown("### Upcoming bus arrivals for the preselected bus stop:")
-
 # Image URLs
-double_decker_image_url = "https://as2.ftcdn.net/v2/jpg/04/14/06/59/1000_F_414065974_Za4qTrRFns0pRqMAQKWoawFOCiE4Xs8w.jpg"
+double_decker_image_url = "https://as2.ftcdn.net/v2/jpg/04/14/06/59/1000_F_414065974_Za4pTrRFns0pRqMAQKWoawFOCiE4Xs8w.jpg"
 single_decker_image_url = "https://i.pinimg.com/originals/ef/e3/ba/efe3bae32ee3374180c6031a898a7f6b.jpg"
-logo_url = "https://www.np.edu.sg/images/default-source/default-album/logo.png"  # Replace with your logo URL
+logo_url = "https://www.np.edu.sg/images/default-source/default-album/logo.png"
 
-# Define the size for the bus images (smaller size)
-image_width = 30  # Changed to 30px
-image_height = 30  # Changed to 30px
+# Define the size for the bus images
+image_width = 30
+image_height = 30
 
 # Access Google Sheets credentials from Streamlit secrets
 try:
@@ -55,11 +50,11 @@ try:
         "universe_domain": st.secrets["google_credentials"]["universe_domain"],
     }
 
-    # Load data from Google Sheet using the separate script
+    # Load data from Google Sheet
     data = fetch_data.extract_data_from_google_sheets(
         "https://docs.google.com/spreadsheets/d/1f58eqLkFr5nJ6bm5PZ3TbfUAxeSd1hpBspW9693kXv8/edit?usp=sharing",
-        credentials,  # Pass the credentials
-        st  # Pass the Streamlit object
+        credentials,
+        st
     )
 
     # Display the data
@@ -75,18 +70,18 @@ try:
         if 'EstimatedArrival' in data.columns:
             data['EstimatedArrival'] = data['EstimatedArrival'].dt.strftime('%H:%M:%S')
 
-        # Group data by ServiceNo (bus number)
+        # Validate the 'Type' column
+        valid_bus_types = ["Single Deck", "Double Deck"]
+        data['Type'] = data['Type'].apply(lambda x: x if x in valid_bus_types else "Single Deck")
+
+        # Group data by ServiceNo
         grouped_data = data.groupby('ServiceNo')
 
-        # Display data in cards with improved formatting
+        # Display data in cards
         st.markdown("---")
         for bus_number, group in grouped_data:
-            # Get the next 3 arrivals for this bus (current + next 2)
+            # Get the next 3 arrivals for this bus
             next_arrivals = group.head(3)
-
-            # Determine the bus type
-            bus_type = next_arrivals.iloc[0]['Type']
-            bus_image_url = double_decker_image_url if bus_type == "Double Deck" else single_decker_image_url
 
             # Create a card-like container for each bus
             with st.container():
@@ -111,7 +106,6 @@ try:
                     # Determine the color based on On Time status
                     color = "green" if row['On Time'] == 1 else "yellow"
 
-                    # Display minutes left for each arrival
                     with col1 if i == 0 else col2 if i == 1 else col3:
                         st.markdown(
                             f"""
@@ -138,6 +132,9 @@ try:
                     for i, (_, row) in enumerate(next_arrivals.iterrows()):
                         # Determine which column to use based on the index
                         with col1 if i == 0 else col2 if i == 1 else col3:
+                            # Determine the correct bus image URL based on the Type
+                            current_bus_image = double_decker_image_url if row['Type'] == "Double Deck" else single_decker_image_url
+                            
                             # Create a card for additional details
                             st.markdown(
                                 f"""
@@ -159,7 +156,7 @@ try:
                                         <p><b>Feature:</b> {row['Feature']}</p>
                                         <p><b>Load:</b> {row['Load']}</p>
                                         <p><b>On Time:</b> {"✅ Yes" if row['On Time'] == 1 else "❌ No"}</p>
-                                        <p><b>Type:</b> {row['Type']} <img src="{bus_image_url}" alt="Bus Icon" style="width:{image_width}px;height:{image_height}px;vertical-align:middle;margin-left:10px;"></p>
+                                        <p><b>Type:</b> {row['Type']} <img src="{current_bus_image}" alt="Bus Icon" style="width:{image_width}px;height:{image_height}px;vertical-align:middle;margin-left:10px;"></p>
                                     </div>
                                 </div>
                                 """,
@@ -183,4 +180,4 @@ st.markdown("© 2023 Ngee Ann Polytechnic. All rights reserved.")
 # Auto-refresh every 30 seconds
 if time.time() - st.session_state.last_refresh > 30:
     st.session_state.last_refresh = time.time()
-    st.rerun()  # Use st.rerun() instead of st.experimental_rerun()
+    st.rerun()
