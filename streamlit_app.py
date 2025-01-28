@@ -24,7 +24,20 @@ with st.sidebar:
 
 # Main content
 st.title("🚌 Ngee Ann Polytechnic Bus Arrival Information")
+
+# Comment out or remove the logo display
+# st.image(logo_url, width=30)  # Logo size reduced to 30px
+
 st.markdown("### Upcoming bus arrivals for the preselected bus stop:")
+
+# Image URLs
+double_decker_image_url = "https://as2.ftcdn.net/v2/jpg/04/14/06/59/1000_F_414065974_Za4qTrRFns0pRqMAQKWoawFOCiE4Xs8w.jpg"
+single_decker_image_url = "https://i.pinimg.com/originals/ef/e3/ba/efe3bae32ee3374180c6031a898a7f6b.jpg"
+logo_url = "https://www.np.edu.sg/images/default-source/default-album/logo.png"  # Replace with your logo URL
+
+# Define the size for the bus images (smaller size)
+image_width = 30  # Changed to 30px
+image_height = 30  # Changed to 30px
 
 # Access Google Sheets credentials from Streamlit secrets
 try:
@@ -71,6 +84,10 @@ try:
             # Get the next 3 arrivals for this bus (current + next 2)
             next_arrivals = group.head(3)
 
+            # Determine the bus type
+            bus_type = next_arrivals.iloc[0]['Type']
+            bus_image_url = double_decker_image_url if bus_type == "Double Deck" else single_decker_image_url
+
             # Create a card-like container for each bus
             with st.container():
                 st.markdown(
@@ -91,8 +108,8 @@ try:
                 # Display minutes left for the next 3 arrivals
                 col1, col2, col3 = st.columns(3)
                 for i, (_, row) in enumerate(next_arrivals.iterrows()):
-                    # Determine the color based on Monitored status
-                    color = "green" if row['Monitored'] == 1 else "yellow"
+                    # Determine the color based on On Time status
+                    color = "green" if row['On Time'] == 1 else "yellow"
 
                     # Display minutes left for each arrival
                     with col1 if i == 0 else col2 if i == 1 else col3:
@@ -115,35 +132,39 @@ try:
 
                 # Add a dropdown for additional details
                 with st.expander(f"📄 View Additional Details for Bus {bus_number}"):
-                    for _, row in next_arrivals.iterrows():
-                        # Create a card for additional details
-                        st.markdown(
-                            f"""
-                            <div style="
-                                border: 1px solid #ddd;
-                                border-radius: 10px;
-                                padding: 10px;
-                                margin: 5px 0;
-                                background-color: #fff;
-                            ">
-                                <h4>🚌 Arrival Details</h4>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <div style="flex: 1;">
-                                        <p><b>Arrival Time:</b> {row['EstimatedArrival']}</p>
+                    # Create columns for horizontal layout
+                    col1, col2, col3 = st.columns(3)
+                    
+                    for i, (_, row) in enumerate(next_arrivals.iterrows()):
+                        # Determine which column to use based on the index
+                        with col1 if i == 0 else col2 if i == 1 else col3:
+                            # Create a card for additional details
+                            st.markdown(
+                                f"""
+                                <div style="
+                                    border: 1px solid #ddd;
+                                    border-radius: 10px;
+                                    padding: 15px;
+                                    margin: 10px 0;
+                                    background-color: #f9f9f9;
+                                ">
+                                    <div style="
+                                        border: 1px solid #ddd;
+                                        border-radius: 10px;
+                                        padding: 10px;
+                                        margin: 5px 0;
+                                        background-color: #fff;
+                                    ">
+                                        <h4>🚌 Arrival {i+1}</h4>
                                         <p><b>Feature:</b> {row['Feature']}</p>
-                                    </div>
-                                    <div style="flex: 1;">
                                         <p><b>Load:</b> {row['Load']}</p>
-                                        <p><b>Monitored:</b> {"✅ Yes" if row['Monitored'] == 1 else "❌ No"}</p>
-                                    </div>
-                                    <div style="flex: 1;">
-                                        <p><b>Type:</b> {row['Type']}</p>
+                                        <p><b>On Time:</b> {"✅ Yes" if row['On Time'] == 1 else "❌ No"}</p>
+                                        <p><b>Type:</b> {row['Type']} <img src="{bus_image_url}" alt="Bus Icon" style="width:{image_width}px;height:{image_height}px;vertical-align:middle;margin-left:10px;"></p>
                                     </div>
                                 </div>
-                            </div>
-                            """,
-                            unsafe_allow_html=True
-                        )
+                                """,
+                                unsafe_allow_html=True
+                            )
 
             st.markdown("---")
     else:
@@ -162,4 +183,4 @@ st.markdown("© 2023 Ngee Ann Polytechnic. All rights reserved.")
 # Auto-refresh every 30 seconds
 if time.time() - st.session_state.last_refresh > 30:
     st.session_state.last_refresh = time.time()
-    st.experimental_rerun()
+    st.rerun()  # Use st.rerun() instead of st.experimental_rerun()

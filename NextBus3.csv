@@ -1,8 +1,8 @@
-NextBus,Description,ServiceNo,MinutesLeft,EstimatedArrival,Feature,Load,Monitored,Type
-NextBus3,Eunos Int,154,2,27/1/2025 18:51,Wheelchair Accessible,Standing Available,1,Single Deck
-NextBus3,Gali Batu Ter,75,12,27/1/2025 19:01,Wheelchair Accessible,Seats Available,1,Single Deck
-NextBus3,Gali Batu Ter,184,15,27/1/2025 19:03,Wheelchair Accessible,Seats Available,1,Single Deck
-NextBus3,Hougang Ctrl Int,151,17,27/1/2025 19:05,Wheelchair Accessible,Seats Available,0,Single Deck
-NextBus3,Bt Batok Int,61,24,27/1/2025 19:13,Wheelchair Accessible,Standing Available,1,Single Deck
-NextBus3,Hougang Ctrl Int,74,33,27/1/2025 19:22,Wheelchair Accessible,Seats Available,0,Double Deck
-NextBus3,Bishan Int,52,40,27/1/2025 19:29,Wheelchair Accessible,Seats Available,0,Single Deck
+NextBus,Description,ServiceNo,MinutesLeft,EstimatedArrival,Feature,Load,On Time,Type
+NextBus3,Eunos Int,154,17,28/1/2025 15:03,Wheelchair Accessible,Standing Available,1,Single Deck
+NextBus3,Hougang Ctrl Int,74,22,28/1/2025 15:08,Wheelchair Accessible,Seats Available,0,Double Deck
+NextBus3,Hougang Ctrl Int,151,24,28/1/2025 15:10,Wheelchair Accessible,Seats Available,0,Single Deck
+NextBus3,Gali Batu Ter,184,24,28/1/2025 15:11,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus3,Bt Batok Int,61,26,28/1/2025 15:12,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus3,Bishan Int,52,31,28/1/2025 15:17,Wheelchair Accessible,Seats Available,1,Single Deck
+NextBus3,Gali Batu Ter,75,34,28/1/2025 15:20,Wheelchair Accessible,Seats Available,1,Single Deck
