@@ -123,6 +123,9 @@ try:
                     # Display the seats available icon with the appropriate color
                     seats_available_icon_html = f'<img src="{seats_available_url}" alt="Seats Available" style="width:20px;height:20px;filter: {seats_available_color};">'
 
+                    # Determine the filter for the bus icon based on On Time status
+                    bus_icon_filter = "brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%)" if row['On Time'] == 1 else "brightness(0) saturate(100%) invert(15%) sepia(99%) saturate(7480%) hue-rotate(358deg) brightness(95%) contrast(112%)"
+
                     with col1 if i == 0 else col2 if i == 1 else col3:
                         st.markdown(
                             f"""
@@ -137,7 +140,7 @@ try:
                                 <p><b>Minutes Left:</b> <span style='color:{on_time_color};'>{row['MinutesLeft']}</span></p>
                                 <p><b>Arrival Time:</b> {row['EstimatedArrival']}</p>
                                 <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-                                    <img src="{current_bus_image}" alt="Bus Type" style="width:{image_width}px;height:{image_height}px;margin-right: 10px;filter: brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%);">
+                                    <img src="{current_bus_image}" alt="Bus Type" style="width:{image_width}px;height:{image_height}px;margin-right: 10px;filter: {bus_icon_filter};">
                                     {wheelchair_icon_html}
                                     {seats_available_icon_html}
                                 </div>
