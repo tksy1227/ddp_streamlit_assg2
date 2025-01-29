@@ -5,7 +5,7 @@ import fetch_data
 
 # Set page configuration
 st.set_page_config(
-    page_title="Ngee Ann Polytechnic Bus Arrival",
+    page_title="Bus Arrival of Your Selected Bus Code",
     page_icon="🚌",
     layout="wide"
 )
@@ -20,7 +20,7 @@ with st.sidebar:
     refresh_button = st.button("🔄 Refresh Data")
     st.markdown("---")
     st.markdown("**About**")
-    st.markdown("This app provides real-time bus arrival information for Ngee Ann Polytechnic.")
+    st.markdown("This app provides real-time bus arrival information for the chosen bus stop code.")
 
 # Main content
 st.title("🚌 Ngee Ann Polytechnic Bus Arrival Information")
@@ -197,7 +197,7 @@ except Exception as e:
 # Footer
 st.markdown("---")
 st.markdown("**Data refreshed periodically**")
-st.markdown("© 2023 Ngee Ann Polytechnic. All rights reserved.")
+st.markdown("© 2025 Chloe Wan Si Rou. All rights reserved.")
 
 # Auto-refresh every 30 seconds
 if time.time() - st.session_state.last_refresh > 30:
