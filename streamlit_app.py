@@ -26,11 +26,13 @@ with st.sidebar:
 st.title("🚌 Ngee Ann Polytechnic Bus Arrival Information")
 
 # Image URLs
-double_decker_image_url = "https://as2.ftcdn.net/v2/jpg/04/14/06/59/1000_F_414065974_Za4pTrRFns0pRqMAQKWoawFOCiE4Xs8w.jpg"
-single_decker_image_url = "https://i.pinimg.com/originals/ef/e3/ba/efe3bae32ee3374180c6031a898a7f6b.jpg"
+double_decker_image_url = "https://cdn-icons-png.flaticon.com/512/335/335070.png"
+single_decker_image_url = "https://static.vecteezy.com/system/resources/previews/018/931/177/non_2x/black-bus-icon-png.png"
+wheelchair_icon_url = "https://www.shareicon.net/data/2016/03/07/730290_wheelchair_512x512.png"  # Wheelchair icon URL
 logo_url = "https://www.np.edu.sg/images/default-source/default-album/logo.png"
+seats_available_url = "https://cdn0.iconfinder.com/data/icons/travel-102/24/seat-1024.png"
 
-# Define the size for the bus images
+# Define the size for the icons
 image_width = 30
 image_height = 30
 
@@ -50,7 +52,7 @@ try:
         "universe_domain": st.secrets["google_credentials"]["universe_domain"],
     }
 
-    # Load data from Google Sheet
+    # Load data from Google Sheets
     data = fetch_data.extract_data_from_google_sheets(
         "https://docs.google.com/spreadsheets/d/1f58eqLkFr5nJ6bm5PZ3TbfUAxeSd1hpBspW9693kXv8/edit?usp=sharing",
         credentials,
@@ -104,7 +106,22 @@ try:
                 col1, col2, col3 = st.columns(3)
                 for i, (_, row) in enumerate(next_arrivals.iterrows()):
                     # Determine the color based on On Time status
-                    color = "green" if row['On Time'] == 1 else "yellow"
+                    on_time_color = "green" if row['On Time'] == 1 else "red"
+
+                    # Determine the wheelchair accessibility color
+                    wheelchair_color = "green" if row['Feature'] == "Wheelchair Accessible" else "red"
+
+                    # Determine the bus type image
+                    current_bus_image = double_decker_image_url if row['Type'] == "Double Deck" else single_decker_image_url
+
+                    # Display the wheelchair icon with the appropriate color
+                    wheelchair_icon_html = f'<img src="{wheelchair_icon_url}" alt="Wheelchair Accessible" style="width:20px;height:20px;filter: brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%);">' if row['Feature'] == "Wheelchair Accessible" else f'<img src="{wheelchair_icon_url}" alt="Wheelchair Accessible" style="width:20px;height:20px;filter: brightness(0) saturate(100%) invert(15%) sepia(99%) saturate(7480%) hue-rotate(358deg) brightness(95%) contrast(112%);">'
+
+                    # Determine the color for the seats available icon
+                    seats_available_color = "brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%)" if row['Load'] == "Seats Available" else "brightness(0) saturate(100%) invert(15%) sepia(99%) saturate(7480%) hue-rotate(358deg) brightness(95%) contrast(112%)"
+
+                    # Display the seats available icon with the appropriate color
+                    seats_available_icon_html = f'<img src="{seats_available_url}" alt="Seats Available" style="width:20px;height:20px;filter: {seats_available_color};">'
 
                     with col1 if i == 0 else col2 if i == 1 else col3:
                         st.markdown(
@@ -117,8 +134,13 @@ try:
                                 background-color: #fff;
                             ">
                                 <h4>Next Arrival {i+1}</h4>
-                                <p><b>Minutes Left:</b> <span style='color:{color};'>{row['MinutesLeft']}</span></p>
+                                <p><b>Minutes Left:</b> <span style='color:{on_time_color};'>{row['MinutesLeft']}</span></p>
                                 <p><b>Arrival Time:</b> {row['EstimatedArrival']}</p>
+                                <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+                                    <img src="{current_bus_image}" alt="Bus Type" style="width:{image_width}px;height:{image_height}px;margin-right: 10px;filter: brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%);">
+                                    {wheelchair_icon_html}
+                                    {seats_available_icon_html}
+                                </div>
                             </div>
                             """,
                             unsafe_allow_html=True
