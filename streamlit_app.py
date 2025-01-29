@@ -23,7 +23,7 @@ with st.sidebar:
     st.markdown("This app provides real-time bus arrival information for the chosen bus stop code.")
 
 # Main content
-st.title("🚌 Ngee Ann Polytechnic Bus Arrival Information")
+st.title("🚌 Bus Arrival Information of Selected Bus Stop")
 
 # Image URLs
 double_decker_image_url = "https://cdn-icons-png.flaticon.com/512/335/335070.png"
