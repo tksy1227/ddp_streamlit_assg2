@@ -32,6 +32,7 @@ bendy_bus_image_url = "https://cdn.vectorstock.com/i/1000v/95/07/articulated-bus
 wheelchair_icon_url = "https://www.shareicon.net/data/2016/03/07/730290_wheelchair_512x512.png"  # Wheelchair icon URL
 logo_url = "https://www.np.edu.sg/images/default-source/default-album/logo.png"
 seats_available_url = "https://cdn0.iconfinder.com/data/icons/travel-102/24/seat-1024.png"
+standing_available_url = "https://cdn1.iconfinder.com/data/icons/human-3/48/142-512.png"  # Standing available icon URL
 
 # Define the size for the icons
 image_width = 30
@@ -123,11 +124,22 @@ try:
                     # Display the wheelchair icon with the appropriate color
                     wheelchair_icon_html = f'<img src="{wheelchair_icon_url}" alt="Wheelchair Accessible" style="width:20px;height:20px;filter: brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%);">' if row['Feature'] == "Wheelchair Accessible" else f'<img src="{wheelchair_icon_url}" alt="Wheelchair Accessible" style="width:20px;height:20px;filter: brightness(0) saturate(100%) invert(15%) sepia(99%) saturate(7480%) hue-rotate(358deg) brightness(95%) contrast(112%);">'
 
-                    # Determine the color for the seats available icon
-                    seats_available_color = "brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%)" if row['Load'] == "Seats Available" else "brightness(0) saturate(100%) invert(15%) sepia(99%) saturate(7480%) hue-rotate(358deg) brightness(95%) contrast(112%)"
+                    # Determine the image and color based on the Load value
+                    if row['Load'] == "Seats Available":
+                        load_image_url = seats_available_url
+                        load_image_color = "brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%)"  # Green
+                    elif row['Load'] == "Standing Available":
+                        load_image_url = standing_available_url
+                        load_image_color = "brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%)"  # Green
+                    elif row['Load'] == "Limited Standing":
+                        load_image_url = standing_available_url
+                        load_image_color = "brightness(0) saturate(100%) invert(75%) sepia(50%) saturate(500%) hue-rotate(30deg) brightness(95%) contrast(91%)"  # Dark Yellow
+                    else:
+                        load_image_url = seats_available_url
+                        load_image_color = "brightness(0) saturate(100%) invert(15%) sepia(99%) saturate(7480%) hue-rotate(358deg) brightness(95%) contrast(112%)"  # Red
 
-                    # Display the seats available icon with the appropriate color
-                    seats_available_icon_html = f'<img src="{seats_available_url}" alt="Seats Available" style="width:20px;height:20px;filter: {seats_available_color};">'
+                    # Display the appropriate icon with the corresponding color
+                    load_icon_html = f'<img src="{load_image_url}" alt="Load Status" style="width:20px;height:20px;filter: {load_image_color};">'
 
                     # Determine the filter for the bus icon based on On Time status
                     bus_icon_filter = "brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%)" if row['On Time'] == 1 else "brightness(0) saturate(100%) invert(15%) sepia(99%) saturate(7480%) hue-rotate(358deg) brightness(95%) contrast(112%)"
@@ -148,7 +160,7 @@ try:
                                 <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
                                     <img src="{current_bus_image}" alt="Bus Type" style="width:{image_width}px;height:{image_height}px;margin-right: 10px;filter: {bus_icon_filter};">
                                     {wheelchair_icon_html}
-                                    {seats_available_icon_html}
+                                    {load_icon_html}
                                 </div>
                             </div>
                             """,
