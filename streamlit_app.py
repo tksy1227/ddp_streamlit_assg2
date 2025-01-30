@@ -28,6 +28,7 @@ st.title("🚌 Bus Arrival Information of Selected Bus Stop")
 # Image URLs
 double_decker_image_url = "https://cdn-icons-png.flaticon.com/512/335/335070.png"
 single_decker_image_url = "https://static.vecteezy.com/system/resources/previews/018/931/177/non_2x/black-bus-icon-png.png"
+bendy_bus_image_url = "https://cdn.vectorstock.com/i/1000v/95/07/articulated-bus-line-icon-vector-14179507.png"  # Updated to PNG version
 wheelchair_icon_url = "https://www.shareicon.net/data/2016/03/07/730290_wheelchair_512x512.png"  # Wheelchair icon URL
 logo_url = "https://www.np.edu.sg/images/default-source/default-album/logo.png"
 seats_available_url = "https://cdn0.iconfinder.com/data/icons/travel-102/24/seat-1024.png"
@@ -73,7 +74,7 @@ try:
             data['EstimatedArrival'] = data['EstimatedArrival'].dt.strftime('%H:%M:%S')
 
         # Validate the 'Type' column
-        valid_bus_types = ["Single Deck", "Double Deck"]
+        valid_bus_types = ["Single Deck", "Double Deck", "Bendy"]
         data['Type'] = data['Type'].apply(lambda x: x if x in valid_bus_types else "Single Deck")
 
         # Group data by ServiceNo
@@ -112,7 +113,12 @@ try:
                     wheelchair_color = "green" if row['Feature'] == "Wheelchair Accessible" else "red"
 
                     # Determine the bus type image
-                    current_bus_image = double_decker_image_url if row['Type'] == "Double Deck" else single_decker_image_url
+                    if row['Type'] == "Double Deck":
+                        current_bus_image = double_decker_image_url
+                    elif row['Type'] == "Bendy":
+                        current_bus_image = bendy_bus_image_url
+                    else:
+                        current_bus_image = single_decker_image_url
 
                     # Display the wheelchair icon with the appropriate color
                     wheelchair_icon_html = f'<img src="{wheelchair_icon_url}" alt="Wheelchair Accessible" style="width:20px;height:20px;filter: brightness(0) saturate(100%) invert(39%) sepia(99%) saturate(748%) hue-rotate(89deg) brightness(95%) contrast(91%);">' if row['Feature'] == "Wheelchair Accessible" else f'<img src="{wheelchair_icon_url}" alt="Wheelchair Accessible" style="width:20px;height:20px;filter: brightness(0) saturate(100%) invert(15%) sepia(99%) saturate(7480%) hue-rotate(358deg) brightness(95%) contrast(112%);">'
@@ -158,7 +164,12 @@ try:
                         # Determine which column to use based on the index
                         with col1 if i == 0 else col2 if i == 1 else col3:
                             # Determine the correct bus image URL based on the Type
-                            current_bus_image = double_decker_image_url if row['Type'] == "Double Deck" else single_decker_image_url
+                            if row['Type'] == "Double Deck":
+                                current_bus_image = double_decker_image_url
+                            elif row['Type'] == "Bendy":
+                                current_bus_image = bendy_bus_image_url
+                            else:
+                                current_bus_image = single_decker_image_url
                             
                             # Create a card for additional details
                             st.markdown(
