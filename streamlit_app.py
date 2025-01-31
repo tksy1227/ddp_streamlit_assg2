@@ -98,7 +98,7 @@ try:
                         margin: 10px 0;
                         background-color: #f9f9f9;
                     ">
-                        <h3>🚏 Bus {bus_number} - {next_arrivals.iloc[0]['Description']}</h3>
+                        <h3>🚏 Bus {bus_number} - towards {next_arrivals.iloc[0]['Description']}</h3>
                     </div>
                     """,
                     unsafe_allow_html=True
