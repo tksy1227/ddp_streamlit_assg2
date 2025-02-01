@@ -222,7 +222,6 @@ except Exception as e:
 
 # Footer
 st.markdown("---")
-st.markdown("**Data refreshed periodically**")
 st.markdown("© 2025 Chloe Wan Si Rou. All rights reserved.")
 
 # Auto-refresh every 30 seconds
